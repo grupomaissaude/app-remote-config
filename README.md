@@ -36,8 +36,17 @@ Placeholders disponíveis:
 Exemplo:
 
 ```
-Olá! Gostaria de retirar meu brinde "{{brinde}}" na unidade {{unidade}}.{{endereco_bloco}}{{codigo_bloco}}
+Olá, quero marcar um horário para retirar meu brinde.
 ```
+
+Placeholders opcionais (se quiser incluir contexto na mensagem):
+
+| Placeholder | Descrição |
+|-------------|-----------|
+| `{{brinde}}` | Nome do brinde resgatado |
+| `{{unidade}}` | Nome da unidade de retirada |
+| `{{endereco_bloco}}` | Endereço formatado (com `\n` na frente), ou vazio |
+| `{{codigo_bloco}}` | Linha `Código do voucher: …`, ou vazio |
 
 ## Como atualizar
 

@@ -1,1 +1,1 @@
-Olá! Gostaria de retirar meu brinde "{{brinde}}" na unidade {{unidade}}.{{endereco_bloco}}{{codigo_bloco}}
+Olá, quero marcar um horário para retirar meu brinde.
