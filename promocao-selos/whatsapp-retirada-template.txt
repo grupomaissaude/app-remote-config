@@ -1,1 +1,1 @@
-Olá! Resgatei o brinde {{brinde}} e gostaria de combinar um horário para retirar na unidade{{unidade}}.{{codigo_bloco}}
+Olá! Resgatei o brinde {{brinde}} e gostaria de combinar um horário para retirar na unidade de {{unidade}}.\n{{codigo_bloco}}
