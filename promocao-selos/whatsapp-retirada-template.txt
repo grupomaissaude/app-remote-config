@@ -1,3 +1,2 @@
 Olá! Resgatei o brinde {{brinde}} e gostaria de combinar um horário para retirar na unidade de {{unidade}}.
-
 {{codigo_bloco}}
