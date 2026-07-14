@@ -9,9 +9,28 @@ O app busca estes arquivos em tempo de execução (com cache local). Alteraçõe
 ## Estrutura
 
 ```
+biometric/
+  background-lock-minutes.txt     — Minutos de inatividade para exigir biometria novamente
 promocao-selos/
   termos.txt                      — Termos / política da promoção de selos
   whatsapp-retirada-template.txt  — Mensagem padrão do WhatsApp para retirada de brinde
+```
+
+## Biometria
+
+### `biometric/background-lock-minutes.txt`
+
+Número inteiro positivo: minutos com o app em background/inativo após os quais a biometria é solicitada de novo ao voltar.
+
+Também alimenta o texto na tela **Plano**:
+`Solicitar biometria após X minutos de inatividade.`
+
+Fallback embutido no app: `30`.
+
+Exemplo:
+
+```
+30
 ```
 
 ## Promoção de selos
@@ -52,4 +71,4 @@ Placeholders opcionais (se quiser incluir contexto na mensagem):
 
 1. Edite o arquivo desejado neste repositório
 2. Faça commit e push para `main`
-3. O app sincroniza na próxima abertura da promoção (ou ao puxar para atualizar)
+3. O app sincroniza na próxima abertura (ou ao atualizar a tela que consome a variável)
