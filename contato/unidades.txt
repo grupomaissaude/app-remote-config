@@ -1,3 +1,4 @@
-tramandai|Tramandaí - RS_5
-osorio|Osório - RS_5
-capao|Capão da Canoa - RS_5
+tramandai|Tramandaí - RS
+osorio|Osório - RS
+capao|Capão da Canoa - RS
+outros|Outros

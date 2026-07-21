@@ -16,8 +16,8 @@ contato/
   whatsapp-numero.txt             — Número WhatsApp (E.164, só dígitos) para contratar plano
   whatsapp-mensagem-template.txt  — Template da mensagem pré-preenchida no WhatsApp
   telefone-voz.txt                — Telefone de voz no alerta se o WhatsApp falhar
-  unidades.txt                    — Unidades do modal (id|label, uma por linha)
-  cobertura-mensagem.txt          — Texto do diálogo "Outros" (cobertura geográfica)
+  unidades.txt                    — Itens do modal (id|label); id `outros` = opção genérica
+  cobertura-mensagem.txt          — Texto do diálogo ao escolher a opção `outros`
   central-telefone.txt            — Telefone da central no verso do cartão
   site-url.txt                    — Site exibido no verso do cartão
 ```
@@ -64,9 +64,11 @@ Fallback embutido: `0800 123 9919`.
 
 ### `contato/unidades.txt`
 
-Uma unidade por linha no formato `id|label`. Linhas vazias são ignoradas.
+Uma opção por linha no formato `id|label`. Linhas vazias são ignoradas.
 
-Fallback embutido: Tramandaí, Osório, Capão da Canoa.
+O id **`outros`** é reservado: não abre WhatsApp; mostra `cobertura-mensagem.txt`.
+
+Fallback embutido: Tramandaí, Osório, Capão da Canoa, Outros.
 
 Exemplo:
 
@@ -74,11 +76,12 @@ Exemplo:
 tramandai|Tramandaí - RS
 osorio|Osório - RS
 capao|Capão da Canoa - RS
+outros|Outros
 ```
 
 ### `contato/cobertura-mensagem.txt`
 
-Mensagem do diálogo ao escolher "Outros" no modal de unidades.
+Mensagem do diálogo ao escolher a opção com id `outros` no modal.
 
 Fallback embutido: texto atual de cobertura no RS.
 
