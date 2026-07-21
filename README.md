@@ -9,52 +9,38 @@ O app busca estes arquivos em tempo de execução (com cache local). Alteraçõe
 
 ## Convenção de pastas
 
-Pastas espelham o **componente** ou a **tela** do app (`app-cms-v2`), em kebab-case:
+Pastas por **fluxo / tela** do app (`app-cms-v2`), em kebab-case:
 
 | Pasta remota | Espelho no app |
 |--------------|----------------|
+| `contratar-plano/` | Fluxo “Faça já o seu” / “Contratar um Plano” (`UnitPickerModal`, WhatsApp, diálogo Outros) |
+| `inicio/` | `app/(tabs)/index.tsx` (`InicioScreen`) — rodapé do cartão |
 | `biometric/` | Biometria (`SessionProvider`) |
-| `unit-picker-modal/` | `src/components/UnitPickerModal.tsx` |
-| `whatsapp-contract-plan/` | `src/utils/openWhatsAppContractPlan.ts` |
-| `auth/` | `app/(auth)/index.tsx` |
-| `inicio/` | `app/(tabs)/index.tsx` (`InicioScreen`) |
 
 ## Estrutura
 
 ```
-biometric/
-  background-lock-minutes.txt
-unit-picker-modal/
+contratar-plano/
   unidades.txt
-whatsapp-contract-plan/
-  numero.txt
-  mensagem-template.txt
+  whatsapp-numero.txt
+  whatsapp-mensagem-template.txt
   telefone-voz.txt
-auth/
   cobertura-mensagem.txt
 inicio/
   cartao-central-telefone.txt
   cartao-site-url.txt
+biometric/
+  background-lock-minutes.txt
 ```
 
-## Biometria (`biometric/`)
+## Contratar plano (`contratar-plano/`)
 
-### `background-lock-minutes.txt`
-
-Número inteiro positivo: minutos com o app em background/inativo após os quais a biometria é solicitada de novo ao voltar.
-
-Fallback embutido no app: `30`.
-
-## UnitPickerModal (`unit-picker-modal/`)
+Fluxo na tela de auth: escolher unidade → WhatsApp **ou** diálogo “Outros”.
 
 ### `unidades.txt`
 
-Uma opção por linha: `id|label`. Linhas vazias são ignoradas.
-
-O id **`outros`** é reservado: não abre WhatsApp; mostra `auth/cobertura-mensagem.txt`.  
+Uma opção por linha: `id|label`. O id **`outros`** não abre WhatsApp; mostra `cobertura-mensagem.txt`.  
 Se a lista remota não tiver `outros`, o app acrescenta o fallback embutido.
-
-Fallback: Tramandaí, Osório, Capão da Canoa, Outros.
 
 ```
 tramandai|Tramandaí - RS
@@ -63,13 +49,11 @@ capao|Capão da Canoa - RS
 outros|Outros
 ```
 
-## WhatsApp contratar plano (`whatsapp-contract-plan/`)
-
-### `numero.txt`
+### `whatsapp-numero.txt`
 
 E.164 **somente dígitos**. Fallback: `555108001239919`.
 
-### `mensagem-template.txt`
+### `whatsapp-mensagem-template.txt`
 
 Placeholder `{{unidade_bloco}}` → ` - unidade {label}` ou vazio.
 
@@ -79,11 +63,9 @@ Fallback: `Olá! Gostaria de contratar um plano do Cartão Mais Saúde{{unidade_
 
 Texto no alerta se o WhatsApp não abrir. Fallback: `0800 123 9919`.
 
-## Auth (`auth/`)
-
 ### `cobertura-mensagem.txt`
 
-Diálogo ao escolher a opção `outros` no modal. Fallback: texto de cobertura no RS.
+Só ao tocar em **Outros**. Fallback: texto de cobertura no RS.
 
 ## Início (`inicio/`)
 
@@ -95,14 +77,20 @@ Fallback: `0800 661 1307`.
 
 ### `cartao-site-url.txt`
 
-Texto de exibição (sem obrigar `https://`). Fallback: `www.cartaoms.com.br`.
+Texto de exibição. Fallback: `www.cartaoms.com.br`.
+
+## Biometria (`biometric/`)
+
+### `background-lock-minutes.txt`
+
+Minutos de inatividade em background para pedir biometria de novo. Fallback: `30`.
 
 ## Como atualizar
 
-1. Edite o arquivo na pasta do componente/tela correspondente
+1. Edite o arquivo na pasta do fluxo/tela correspondente
 2. Commit e push em `main`
 3. O app sincroniza na próxima abertura
 
 ## Remover um domínio
 
-Se a feature/tela sair do app, apague a pasta aqui, atualize este README e faça push. Não deixe arquivos órfãos.
+Se o fluxo/tela sair do app, apague a pasta aqui, atualize este README e faça push. Não deixe arquivos órfãos.
