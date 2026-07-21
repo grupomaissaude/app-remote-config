@@ -27,8 +27,8 @@ contratar-plano/
   telefone-voz.txt
   cobertura-mensagem.txt
 inicio/
-  cartao-central-telefone.txt
-  cartao-site-url.txt
+  cartao-verso-telefone.txt
+  cartao-verso-site.txt
 biometric/
   background-lock-minutes.txt
 ```
@@ -71,11 +71,11 @@ Só ao tocar em **Outros**. Fallback: texto de cobertura no RS.
 
 Rodapé do cartão na home.
 
-### `cartao-central-telefone.txt`
+### `cartao-verso-telefone.txt`
 
 Fallback: `0800 661 1307`.
 
-### `cartao-site-url.txt`
+### `cartao-verso-site.txt`
 
 Texto de exibição. Fallback: `www.cartaoms.com.br`.
 
