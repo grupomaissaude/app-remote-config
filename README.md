@@ -29,6 +29,7 @@ contratar-plano/
 inicio/
   cartao-verso-telefone.txt
   cartao-verso-site.txt
+  whatsapp-renovacao-por-unidade.txt
 biometric/
   background-lock-minutes.txt
 ```
@@ -69,7 +70,7 @@ Só ao tocar em **Outros**. Fallback: texto de cobertura no RS.
 
 ## Início (`inicio/`)
 
-Rodapé do cartão na home.
+Rodapé do cartão na home + WhatsApp do card de renovação.
 
 ### `cartao-verso-telefone.txt`
 
@@ -78,6 +79,24 @@ Fallback: `0800 661 1307`.
 ### `cartao-verso-site.txt`
 
 Texto de exibição. Fallback: `www.cartaoms.com.br`.
+
+### `whatsapp-renovacao-por-unidade.txt`
+
+Mapa `fantasia|numero` (E.164, só dígitos) para o botão **Quero renovar** na home.  
+O app compara com `contrato.unidade.fantasia` (sem acento, case-insensitive).
+
+Linha especial `__fallback__|…` = número padrão quando a fantasia não bater (ou unidade ausente).
+
+```
+__fallback__|555108001239949
+TRAMANDAÍ - CARTÃO MAIS SAÚDE|555121601525
+OSÓRIO - CARTÃO MAIS SAÚDE|555121601470
+CAT - CARTÃO MAIS SAÚDE|555108001239949
+CAPÃO DA CANOA - CARTÃO MAIS SAÚDE|555108001239949
+UNIDADE DE TESTES DO TI|555108001239949
+```
+
+Consumidor: `PlanRenewalUrgencyCard` / `openWhatsAppRenewPlan` em `app-cms-v2`.
 
 ## Biometria (`biometric/`)
 
