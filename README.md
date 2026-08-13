@@ -15,6 +15,7 @@ Pastas por **fluxo / tela** do app (`app-cms-v2`), em kebab-case:
 |--------------|----------------|
 | `contratar-plano/` | Fluxo “Faça já o seu” / “Contratar um Plano” (`UnitPickerModal`, WhatsApp, diálogo Outros) |
 | `inicio/` | `app/(tabs)/index.tsx` (`InicioScreen`) — rodapé do cartão |
+| `contrato-status/` | Contrato sem status ativo (`ContractAccessGate`, `ContractStatusBanner`) |
 | `biometric/` | Biometria (`SessionProvider`) |
 
 ## Estrutura
@@ -30,6 +31,11 @@ inicio/
   cartao-verso-telefone.txt
   cartao-verso-site.txt
   whatsapp-renovacao-por-unidade.txt
+contrato-status/
+  whatsapp-renovacao.txt
+  whatsapp-pagamento.txt
+  whatsapp-assinatura.txt
+  whatsapp-suporte.txt
 biometric/
   background-lock-minutes.txt
 ```
@@ -97,6 +103,45 @@ UNIDADE DE TESTES DO TI|555108001239949
 ```
 
 Consumidor: `PlanRenewalUrgencyCard` / `openWhatsAppRenewPlan` em `app-cms-v2`.
+
+## Contrato sem status ativo (`contrato-status/`)
+
+Mensagens do WhatsApp quando o plano não está ativo — o app fica em acesso limitado e o CTA leva o cliente ao atendimento. O número é o mesmo roteamento por unidade de `inicio/whatsapp-renovacao-por-unidade.txt`.
+
+Placeholders (mesma sintaxe dos demais templates):
+
+| Placeholder | Vira |
+|---|---|
+| `{{status_label}}` | Selo do status (`VENCIDO`, `PENDENTE`, `SUSPENSO`, `INATIVO`, `CANCELADO`, `INDISPONÍVEL`) |
+| `{{matricula_bloco}}` | ` Matrícula: 1001.` — vazio quando a API omite a matrícula (todo status fora de `active`) |
+
+O `{{matricula_bloco}}` já inclui o espaço inicial: escreva `...Saúde.{{matricula_bloco}}` sem espaço antes.
+
+### `whatsapp-renovacao.txt`
+
+Status `overdue`/`expired` (CTA **Quero renovar**), também usado pelo card de renovação na home.
+
+Fallback: `Olá! Quero renovar meu plano do Cartão Mais Saúde.{{matricula_bloco}}`
+
+### `whatsapp-pagamento.txt`
+
+Status `billed` (CTA **Falar sobre pagamento**).
+
+Fallback: `Olá! Preciso de ajuda com o pagamento do meu plano do Cartão Mais Saúde ({{status_label}}).{{matricula_bloco}}`
+
+### `whatsapp-assinatura.txt`
+
+Status `awaiting_signature` quando o titular não tem link da Autentique. Dependente não vê CTA de WhatsApp: a tela pede que ele avise o titular.
+
+Fallback: `Olá! Preciso assinar meu contrato do Cartão Mais Saúde ({{status_label}}).{{matricula_bloco}}`
+
+### `whatsapp-suporte.txt`
+
+Demais status (`suspended`, `inactive`, `canceled` e desconhecidos) — CTA **Falar com a unidade**.
+
+Fallback: `Olá! Preciso de ajuda com meu contrato do Cartão Mais Saúde ({{status_label}}).{{matricula_bloco}}`
+
+Consumidores: `openWhatsAppContractStatusSupport` e `openWhatsAppRenewPlan` em `app-cms-v2`.
 
 ## Biometria (`biometric/`)
 

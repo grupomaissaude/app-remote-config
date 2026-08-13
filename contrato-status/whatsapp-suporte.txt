@@ -1,0 +1,1 @@
+Olá! Preciso de ajuda com meu contrato do Cartão Mais Saúde ({{status_label}}).{{matricula_bloco}}
