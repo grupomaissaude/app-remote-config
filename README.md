@@ -108,6 +108,8 @@ Consumidor: `PlanRenewalUrgencyCard` / `openWhatsAppRenewPlan` em `app-cms-v2`.
 
 Mensagens do WhatsApp quando o plano não está ativo — o app fica em acesso limitado e o CTA leva o cliente ao atendimento. O número é o mesmo roteamento por unidade de `inicio/whatsapp-renovacao-por-unidade.txt`.
 
+**Só o titular vê esses CTAs.** Para dependente (`pessoa.tipoPessoa = dependent`) o app não abre WhatsApp nem Autentique em nenhum status: mostra só o aviso de que o titular precisa regularizar. Ou seja, estes textos nunca são enviados por um dependente.
+
 Placeholders (mesma sintaxe dos demais templates):
 
 | Placeholder | Vira |
@@ -131,7 +133,7 @@ Fallback: `Olá! Preciso de ajuda com o pagamento do meu plano do Cartão Mais S
 
 ### `whatsapp-assinatura.txt`
 
-Status `awaiting_signature` quando o titular não tem link da Autentique. Dependente não vê CTA de WhatsApp: a tela pede que ele avise o titular.
+Status `awaiting_signature` quando o titular ainda não tem link da Autentique disponível.
 
 Fallback: `Olá! Preciso assinar meu contrato do Cartão Mais Saúde ({{status_label}}).{{matricula_bloco}}`
 
