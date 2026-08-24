@@ -36,6 +36,7 @@ contrato-status/
   whatsapp-pagamento.txt
   whatsapp-assinatura.txt
   whatsapp-suporte.txt
+  link-assinatura-pendente.txt
 biometric/
   background-lock-minutes.txt
 ```
@@ -144,6 +145,14 @@ Demais status (`suspended`, `inactive`, `canceled` e desconhecidos) — CTA **Fa
 Fallback: `Olá! Preciso de ajuda com meu contrato do Cartão Mais Saúde ({{status_label}}).{{matricula_bloco}}`
 
 Consumidores: `openWhatsAppContractStatusSupport` e `openWhatsAppRenewPlan` em `app-cms-v2`.
+
+### `link-assinatura-pendente.txt`
+
+Diferente dos outros arquivos desta pasta: **não é mensagem de WhatsApp**, é o texto exibido na tela (gate/banner) quando o titular está confirmado (`pessoa.tipoPessoa = holder`) mas a API ainda não retornou o link de assinatura da Autentique — ou seja, a pendência é técnica (link não gerado/entregue), não de reconhecimento do titular. Sem placeholders.
+
+Fallback: `Ainda não recebemos o link de assinatura. Tente novamente em instantes; se persistir, fale com a unidade.`
+
+Consumidor: `resolveContractAccess` (`ContractAccessGate`, `ContractStatusBanner`) em `app-cms-v2`.
 
 ## Biometria (`biometric/`)
 
