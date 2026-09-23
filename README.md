@@ -17,6 +17,7 @@ Pastas por **fluxo / tela** do app (`app-cms-v2`), em kebab-case:
 | `inicio/` | `app/(tabs)/index.tsx` (`InicioScreen`) — rodapé do cartão |
 | `contrato-status/` | Contrato sem status ativo (`ContractAccessGate`, `ContractStatusBanner`) |
 | `biometric/` | Biometria (`SessionProvider`) |
+| `dependente/` | Fluxo “Cadastrar dependente” (`app/(tabs)/dependents.tsx`, `app/add-dependent/`) |
 
 ## Estrutura
 
@@ -39,6 +40,10 @@ contrato-status/
   link-assinatura-pendente.txt
 biometric/
   background-lock-minutes.txt
+dependente/
+  habilitado.txt
+  whatsapp-numero.txt
+  whatsapp-mensagem-template.txt
 ```
 
 ## Contratar plano (`contratar-plano/`)
@@ -159,6 +164,35 @@ Consumidor: `resolveContractAccess` (`ContractAccessGate`, `ContractStatusBanner
 ### `background-lock-minutes.txt`
 
 Minutos de inatividade em background para pedir biometria de novo. Fallback: `30`.
+
+## Cadastrar dependente (`dependente/`)
+
+Fluxo em que o titular cadastra um dependente pelo app, com foto do documento conferida no servidor (MCC-305). Quando a conferência falha, o limite de tentativas acaba ou a câmera é negada, o app oferece **Pedir pelo WhatsApp**.
+
+### `habilitado.txt`
+
+Kill switch do app: `true` ou `false` (qualquer outro valor vale como `false`). O botão **Cadastrar dependente** só aparece quando este arquivo é `true` **e** a API também libera (`habilitado` de `GET /mobile/dependents/eligibility`, controlado pela env `DEPENDENTE_APP_HABILITADO` / `DEPENDENTE_APP_UNIDADES`) **e** a pessoa logada é o titular.
+
+Fallback: `false`. **Nasce `false`** — ligar aqui só depois de a API estar em produção com a flag de servidor ativa.
+
+### `whatsapp-numero.txt`
+
+E.164 **somente dígitos**. Fallback: `5508001239919` (0800 123 9919).
+
+### `whatsapp-mensagem-template.txt`
+
+Mensagem pré-preenchida do WhatsApp. Placeholders (mesma sintaxe dos demais templates):
+
+| Placeholder | Vira |
+|---|---|
+| `{{nomeDependente}}` | Nome do dependente digitado no app (ou `não informado`) |
+| `{{matricula}}` | Matrícula do contrato (ou `não informada` quando a API omite) |
+
+**Nunca** acrescente CPF ou data de nascimento a este texto: a mensagem vai na URL do WhatsApp.
+
+Fallback: `Olá! Quero cadastrar um dependente no meu plano do Cartão Mais Saúde. Nome do dependente: {{nomeDependente}}. Matrícula: {{matricula}}.`
+
+Consumidores: `useDependenteRemoteConfig` e `openWhatsAppAddDependent` em `app-cms-v2`.
 
 ## Como atualizar
 
