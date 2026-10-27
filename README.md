@@ -37,6 +37,7 @@ contrato-status/
   whatsapp-assinatura.txt
   whatsapp-suporte.txt
   link-assinatura-pendente.txt
+  whatsapp-upgrade.txt
 biometric/
   background-lock-minutes.txt
 ```
@@ -153,6 +154,16 @@ Diferente dos outros arquivos desta pasta: **não é mensagem de WhatsApp**, é 
 Fallback: `Ainda não recebemos o link de assinatura. Tente novamente em instantes; se persistir, fale com a unidade.`
 
 Consumidor: `resolveContractAccess` (`ContractAccessGate`, `ContractStatusBanner`) em `app-cms-v2`.
+
+### `whatsapp-upgrade.txt`
+
+Mensagem do botão "Falar com uma vendedora" quando o upgrade de plano não dá para concluir pelo app (bloqueio, erro ao carregar ou ao gerar o Pix). Placeholder `{{matricula_bloco}}` → ` Matrícula: N.` ou vazio. Só a matrícula: nunca nome, CPF ou nascimento.
+
+**Opcional:** se o arquivo faltar ou falhar, o app usa o fallback sem afetar os outros arquivos de contato.
+
+Fallback: `Olá! Quero mudar o meu plano do Cartão Mais Saúde e não consegui pelo app. Pode me ajudar?{{matricula_bloco}}`
+
+Consumidor: `openWhatsAppPlanUpgrade` em `app-cms-v2` (número pelo mesmo roteamento por unidade da renovação).
 
 ## Biometria (`biometric/`)
 
